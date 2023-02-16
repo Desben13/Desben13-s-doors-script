@@ -4,3 +4,5 @@ local Window = Library.CreateLib("Desben13's menu", "DarkTheme")
 --main
 local Tab = Window:NewTab("Main")
 local Section = Tab:NewSection("Main")
+ lol
+ 
