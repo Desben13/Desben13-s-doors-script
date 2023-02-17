@@ -1,0 +1,8 @@
+if game.PlaceId == 6839171747 then
+	local floor = game:GetService('ReplicatedStorage').GameData.Floor.Value
+	if floor == 'Hotel' then
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/Desben13/Desben13-s-doors-script/main/doors?token=GHSAT0AAAAAAB65XB5S2NXEJLTWSX4RIAUWY7PVEVQ'))()
+	elseif floor == 'Rooms' then
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/Desben13/Desben13-s-doors-script/main/rooms?token=GHSAT0AAAAAAB65XB5SE2AMSMEYNMR443LKY7PVGPQ'))()
+	end
+end
