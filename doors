@@ -1,1 +1,144 @@
+-- Instances:
 
+local red = Color3.fromRGB(255, 0, 4)
+local green = Color3.fromRGB(38, 255, 0)
+local UIS = game:GetService('UserInputService')
+
+local ScreenGui = Instance.new("ScreenGui")
+local Doors = Instance.new("Frame")
+local Border = Instance.new("Frame")
+local NameTxt = Instance.new("TextLabel")
+local GameTxt = Instance.new("TextLabel")
+local NotifyEvents = Instance.new("TextLabel")
+local NotifyEventsButton = Instance.new("TextButton")
+local Notifier = Instance.new("Frame")
+local NotifierTxt = Instance.new("TextLabel")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Doors.Name = "Doors"
+Doors.Parent = ScreenGui
+Doors.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+Doors.BorderSizePixel = 0
+Doors.Position = UDim2.new(0.57829839, 0, 0.280769229, 0)
+Doors.Size = UDim2.new(0.410604179, 0, 0.692307711, 0)
+
+Border.Name = "Border"
+Border.Parent = Doors
+Border.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+Border.BorderSizePixel = 0
+Border.Position = UDim2.new(0, 0, -0.0002255258, 0)
+Border.Size = UDim2.new(0.999999881, 0, 0.137829915, 0)
+
+NameTxt.Name = "NameTxt"
+NameTxt.Parent = Border
+NameTxt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+NameTxt.BackgroundTransparency = 1.000
+NameTxt.Size = UDim2.new(0, 162, 0, 29)
+NameTxt.Font = Enum.Font.Bangers
+NameTxt.Text = "very cool doors"
+NameTxt.TextColor3 = Color3.fromRGB(0, 0, 0)
+NameTxt.TextSize = 27.000
+
+GameTxt.Name = "GameTxt"
+GameTxt.Parent = Border
+GameTxt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GameTxt.BackgroundTransparency = 1.000
+GameTxt.Position = UDim2.new(0, 0, 0.467371404, 0)
+GameTxt.Size = UDim2.new(0, 76, 0, 29)
+GameTxt.Font = Enum.Font.Bangers
+GameTxt.Text = "doors"
+GameTxt.TextColor3 = Color3.fromRGB(111, 87, 48)
+GameTxt.TextSize = 27.000
+
+NotifyEvents.Name = "NotifyEvents"
+NotifyEvents.Parent = Doors
+NotifyEvents.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+NotifyEvents.BorderColor3 = Color3.fromRGB(0, 0, 0)
+NotifyEvents.BorderSizePixel = 0
+NotifyEvents.Position = UDim2.new(0.033033032, 0, 0.183342904, 0)
+NotifyEvents.Size = UDim2.new(0.903903902, 0, 0.0768057927, 0)
+NotifyEvents.Font = Enum.Font.SourceSans
+NotifyEvents.Text = " Notify events"
+NotifyEvents.TextColor3 = Color3.fromRGB(0, 0, 0)
+NotifyEvents.TextScaled = true
+NotifyEvents.TextSize = 14.000
+NotifyEvents.TextWrapped = true
+NotifyEvents.TextXAlignment = Enum.TextXAlignment.Left
+
+NotifyEventsButton.Name = "NotifyEventsButton"
+NotifyEventsButton.Parent = NotifyEvents
+NotifyEventsButton.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+NotifyEventsButton.BorderSizePixel = 0
+NotifyEventsButton.Position = UDim2.new(0.897009969, 0, 0, 0)
+NotifyEventsButton.Size = UDim2.new(0, 31, 0, 31)
+NotifyEventsButton.Font = Enum.Font.SourceSans
+NotifyEventsButton.Text = ""
+NotifyEventsButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+NotifyEventsButton.TextSize = 14.000
+
+Notifier.Name = "Notifier"
+Notifier.Parent = ScreenGui
+Notifier.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+Notifier.BorderSizePixel = 0
+Notifier.Position = UDim2.new(0.294697911, 0, 0.0234793499, 0)
+Notifier.Size = UDim2.new(0.410604179, 0, 0.071381405, 0)
+Notifier.Visible = false
+
+NotifierTxt.Name = "NotifierTxt"
+NotifierTxt.Parent = Notifier
+NotifierTxt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+NotifierTxt.BackgroundTransparency = 1.000
+NotifierTxt.Size = UDim2.new(1, 0, 1, 0)
+NotifierTxt.Font = Enum.Font.DenkOne
+NotifierTxt.Text = "{name} is coming"
+NotifierTxt.TextColor3 = Color3.fromRGB(255, 0, 0)
+NotifierTxt.TextScaled = true
+NotifierTxt.TextSize = 14.000
+NotifierTxt.TextWrapped = true
+
+
+---------------------------------------------------------Scripts-----------------------------------------------------------------
+--close and open
+local menuOpen = true
+UIS.InputBegan:Connect(function(key)
+	if key.KeyCode == Enum.KeyCode.RightShift then
+		if menuOpen == true then
+			menuOpen = false
+			Doors.Visible = false
+		elseif menuOpen == false then
+			menuOpen = true
+			Doors.Visible = true
+		end
+	end
+end)
+
+--notifier
+local notifierOpen = false
+local notifierEnabled = false
+NotifyEventsButton.MouseButton1Click:Connect(function()
+	if notifierOpen == false then
+		notifierOpen = true
+		notifierEnabled = true
+		NotifyEventsButton.BackgroundColor3 = green
+	elseif notifierOpen == true then
+		notifierOpen = false
+		notifierEnabled = false
+		NotifyEventsButton.BackgroundColor3 = red
+	end
+end)
+
+game.Workspace.ChildAdded:Connect(function(child)
+	if notifierEnabled == true then
+		if child.Name == 'Rush' then
+		    Notifier.Visible = true
+		    NotifierTxt.Text = 'Rush is coming'
+		    wait(5)
+		    Notifier.Visible = false
+			NotifierTxt.Text = ''
+		end
+	end
+end)
